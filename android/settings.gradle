@@ -2,4 +2,4 @@ rootProject.name = 'customcrop'
 
 include ':app'
 include ':openCVLibrary310'
-project(':openCVLibrary310').projectDir = new File(rootProject.projectDir,'./node_modules/@okcanvas/react-native-document-scanner/android')
+project(':openCVLibrary310').projectDir = new File(rootProject.projectDir,'./node_modules/@okcanvas/react-native-image-cropper/android')
