@@ -60,50 +60,61 @@ public class RNCustomCropModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getImageFileSize(String imageUri, Callback callback) {
-    Mat src = Imgcodecs.imread(imageUri.replace("file://", ""), Imgproc.COLOR_BGR2RGB);
+    try {
+      Mat src = Imgcodecs.imread(imageUri.replace("file://", ""), Imgproc.COLOR_BGR2RGB);
 
-    WritableMap map = Arguments.createMap();
-    map.putBoolean("isBase64", isBase64);
-    map.putDouble("width", src.size().width);
-    map.putDouble("height", src.size().height);
-    callback.invoke(null, map);
+      WritableMap map = Arguments.createMap();
+      map.putBoolean("isBase64", false);
+      map.putDouble("width", src.size().width);
+      map.putDouble("height", src.size().height);
+      callback.invoke(null, map);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      callback.invoke(e, null);
+    }
   }
 
   @ReactMethod
   public void getImageBase64Size(String imageUri, Callback callback) {
-    byte[] decodedString = Base64.decode(imageUri.replace("data:image/jpg;base64,", ""), Base64.DEFAULT);
-    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
-    Bitmap bmp32 = decodedByte.copy(Bitmap.Config.ARGB_8888, true);
-    Mat src = new Mat();
-    Utils.bitmapToMat(bmp32, src);
-
-    WritableMap map = Arguments.createMap();
-    map.putBoolean("isBase64", isBase64);
-    map.putDouble("width", src.size().width);
-    map.putDouble("height", src.size().height);
-    callback.invoke(null, map);
+    try {
+      byte[] decodedString = Base64.decode(imageUri.replace("data:image/jpg;base64,", ""), Base64.DEFAULT);
+      Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+      Bitmap bmp32 = decodedByte.copy(Bitmap.Config.ARGB_8888, true);
+      Mat src = new Mat();
+      Utils.bitmapToMat(bmp32, src);
+  
+      WritableMap map = Arguments.createMap();
+      map.putBoolean("isBase64", true);
+      map.putDouble("width", src.size().width);
+      map.putDouble("height", src.size().height);
+      callback.invoke(null, map);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      callback.invoke(e, null);
+    }
   }
 
   @ReactMethod
   public void imageSize(String imageUri, Callback callback) {
-    Mat src;
-
-    Boolean isBase64 = org.apache.commons.codec.binary.Base64.isBase64(imageUri.getBytes());
-    if (isBase64) {
-      byte[] decodedString = Base64.decode(imageUri.replace("data:image/jpg;base64,", ""), Base64.DEFAULT);
-      Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
-      Bitmap bmp32 = decodedByte.copy(Bitmap.Config.ARGB_8888, true);
-      src = new Mat();
-      Utils.bitmapToMat(bmp32, src);
-    } else {
-      src = Imgcodecs.imread(imageUri.replace("file://", ""), Imgproc.COLOR_BGR2RGB);
+    try {
+      Mat src;
+      Boolean isBase64 = org.apache.commons.codec.binary.Base64.isBase64(imageUri.getBytes());
+      if (isBase64) {
+        byte[] decodedString = Base64.decode(imageUri.replace("data:image/jpg;base64,", ""), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+        Bitmap bmp32 = decodedByte.copy(Bitmap.Config.ARGB_8888, true);
+        src = new Mat();
+        Utils.bitmapToMat(bmp32, src);
+      } else {
+        src = Imgcodecs.imread(imageUri.replace("file://", ""), Imgproc.COLOR_BGR2RGB);
+      }
+  
+      WritableMap map = Arguments.createMap();
+      map.putBoolean("isBase64", isBase64);
+      map.putDouble("width", src.size().width);
+      map.putDouble("height", src.size().height);
+      callback.invoke(null, map);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      callback.invoke(e, null);
     }
-
-    WritableMap map = Arguments.createMap();
-    map.putBoolean("isBase64", isBase64);
-    map.putDouble("width", src.size().width);
-    map.putDouble("height", src.size().height);
-    callback.invoke(null, map);
   }
 
   @ReactMethod
