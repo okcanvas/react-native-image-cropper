@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    //implementation project(':openCVLibrary310')
+    implementation project(':openCVLibrary310')
     implementation 'com.facebook.react:react-native:+'
     implementation 'commons-codec:commons-codec:1.13'
 }
