@@ -1,0 +1,24 @@
+{
+  "name": "@okcanvas/react-native-image-cropper",
+  "description": "react-native-image-cropper",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/okcanvas/react-native-image-cropper"
+  },
+  "keywords": [
+    "react-native",
+    "scanner",
+    "ios"
+  ],
+  "author": "okcanvas",
+  "license": "MIT",
+  "dependencies": {
+    "react": "18.0.0",
+    "react-native": "0.69.6"
+  }
+}
