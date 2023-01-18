@@ -58,6 +58,31 @@ public class RNCustomCropModule extends ReactContextBaseJavaModule {
     return "CustomCropManager";
   }
 
+  @ReactMethod
+  public void getImageFileSize(String imageUri, Callback callback) {
+    Mat src = Imgcodecs.imread(imageUri.replace("file://", ""), Imgproc.COLOR_BGR2RGB);
+
+    WritableMap map = Arguments.createMap();
+    map.putBoolean("isBase64", isBase64);
+    map.putDouble("width", src.size().width);
+    map.putDouble("height", src.size().height);
+    callback.invoke(null, map);
+  }
+
+  @ReactMethod
+  public void getImageBase64Size(String imageUri, Callback callback) {
+    byte[] decodedString = Base64.decode(imageUri.replace("data:image/jpg;base64,", ""), Base64.DEFAULT);
+    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+    Bitmap bmp32 = decodedByte.copy(Bitmap.Config.ARGB_8888, true);
+    Mat src = new Mat();
+    Utils.bitmapToMat(bmp32, src);
+
+    WritableMap map = Arguments.createMap();
+    map.putBoolean("isBase64", isBase64);
+    map.putDouble("width", src.size().width);
+    map.putDouble("height", src.size().height);
+    callback.invoke(null, map);
+  }
 
   @ReactMethod
   public void imageSize(String imageUri, Callback callback) {
