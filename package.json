@@ -1,5 +1,5 @@
 {
-  "name": "@okcanvas/react-native-image-cropper",
+  "name": "react-native-image-cropper",
   "version": "0.0.1",
   "description": "react-native-image-cropper",
   "main": "index.js",
