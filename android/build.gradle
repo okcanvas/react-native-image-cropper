@@ -20,21 +20,33 @@ buildscript {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 28)
-    buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
+    // compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    // buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
+    // defaultConfig {
+    //     minSdkVersion safeExtGet('minSdkVersion', 16)
+    //     targetSdkVersion safeExtGet('targetSdkVersion', 28)
+    // }
+    
+    compileSdkVersion safeExtGet('compileSdkVersion', 33) // 33 이상 권장
+    buildToolsVersion safeExtGet('buildToolsVersion', '33.0.0') // 최신 버전
+
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+        minSdkVersion safeExtGet('minSdkVersion', 21) // 21 이상 권장
+        targetSdkVersion safeExtGet('targetSdkVersion', 33) // 33 이상 권장
     }
 }
 
 repositories {
+    google() // 추가
     mavenCentral()
 }
 
 dependencies {
     //implementation project(':openCVLibrary310')
-    implementation 'com.facebook.react:react-native:+'
-    implementation 'commons-codec:commons-codec:1.13'
+    // implementation 'com.facebook.react:react-native:+'
+    // implementation 'commons-codec:commons-codec:1.13'
+    
+    implementation 'com.facebook.react:react-native:0.72.4' // React Native 최신 안정 버전
+    implementation 'commons-codec:commons-codec:1.15' // 최신 버전
 }
   
